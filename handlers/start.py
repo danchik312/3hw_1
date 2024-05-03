@@ -37,8 +37,13 @@ async def admin_start_menu(message: types.Message,
     if int(ADMIN_ID) == message.from_user.id:
         await bot.send_message(
             chat_id=message.from_user.id,
-            text="Приветсвую вас , мой хозяин"
+            text="Приветствую вас, мой хозяин"
         )
+        users_info = await db.execute_query(query=sql_queries.SELECT_USER, fetch='all')
+        await bot.send_message(
+            chat_id=message.from_user.id,
+            text=f'Список пользователей:\n{users_info}'
+    )
     else:
         await bot.send_message(
             chat_id=message.from_user.id,
