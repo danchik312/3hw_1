@@ -36,7 +36,7 @@ async def start_menu(message: types.Message,
     await bot.send_animation(
         chat_id=message.chat.id,
         animation=animation_file,
-        caption= not START_MENU_TEXT.format(
+        caption=START_MENU_TEXT.format(
             user=message.from_user.first_name
         ),
         reply_markup=await start_menu_keyboard()
