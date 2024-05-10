@@ -79,10 +79,10 @@ async def like_detect_call(call: types.CallbackQuery,
     else:
         await call.answer("Вы уже оценили все профили!")
 
-@router.callback_query(lambda call: "dislike_" in call.data)
+@router.callback_query(lambda call: "dislike" in call.data)
 async def dislike_detect_call(call: types.CallbackQuery,
                               db=AsyncDatabase()):
-    owner_tg_id = re.sub("dislike_", "", call.data)
+    owner_tg_id = re.sub("dislike", "", call.data)
 
     await db.execute_query(
         query=sql_queries.INSERT_DISLIKE_QUERY,
