@@ -45,16 +45,18 @@ async def random_profiles_call(call: types.CallbackQuery,
     )
 
 
-async def delete_profile(user_id, db):
-    await db.connect()
-    await db.delete_user(user_id)
+async def delete_profile(user_id):
+
+    connection = sqlite3.connect("db.sqlite3")
+    cursor = connection.cursor()
+    cursor.execute("DELETE FROM profiles WHERE TELEGRAM_ID = ?", (user_id,))
+    connection.commit()
     print(f"Profile of user {user_id} has been deleted.")
-    await db.close()
 
 
-@router.callback_query(lambda call: call.data == "delete_profile")
+@router.callback_query(lambda call: call.data == 'delete_profile')
 async def process_delete_profile(callback_query: types.CallbackQuery):
-    await delete_profile(callback_query.from_user.id, db)
+    await delete_profile(callback_query.from_user.id)
     await callback_query.answer("Профиль удален", show_alert=True)
 
 

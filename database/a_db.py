@@ -29,7 +29,3 @@ class AsyncDatabase:
                 data = await cursor.fetchone()
                 return dict(data) if data else None
 
-
-    async def delete_user(self, user_id):
-        async with self.conn.execute("DELETE FROM profiles WHERE user_id = ?", (user_id,)) as cursor:
-            pass
