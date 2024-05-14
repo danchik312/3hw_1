@@ -19,6 +19,7 @@ from keyboards.start import start_menu_keyboard
 router = Router()
 
 
+
 @router.callback_query(lambda call: call.data == "reference_menu")
 async def reference_menu(call: types.CallbackQuery):
     await bot.send_message(
@@ -63,8 +64,29 @@ async def reference_link_creation(call: types.CallbackQuery,
             chat_id=call.from_user.id,
             text=f"Ur new link {link}"
         )
+@router.callback_query(lambda call: call.data == "referral_list")
+async def referral_list_handler(call: types.CallbackQuery, db=AsyncDatabase()):
+    async def get_referral_list(owner_telegram_id):
+        referral_list = await db.execute_query(
+            query=sql_queries.GET_REFERRAL_LIST_QUERY,
+            params=(owner_telegram_id,),
+            fetch='all'
+        )
+        return referral_list
 
-
+    user_id = call.from_user.id
+    owner_telegram_id = await db.execute_query(
+        query=sql_queries.GET_OWNER_TELEGRAM_ID_QUERY,
+        params=(user_id,),
+        fetch='one'
+    )
+    if owner_telegram_id and owner_telegram_id[0] == user_id:
+        referral_list = await get_referral_list(user_id)
+        if referral_list:
+            message_text = "Your Referral List:\n" + "\n".join(str(referral) for referral in referral_list)
+        else:
+            message_text = "You don't have any referrals yet."
+    await call.message.answer(message_text)
 @router.callback_query(lambda call: call.data == "reference_balance")
 async def view_balance(call: types.CallbackQuery,
                        db=AsyncDatabase()):
