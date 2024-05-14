@@ -1,5 +1,8 @@
+import sqlite3
+
 import aiosqlite
 from database import sql_queries
+
 
 class AsyncDatabase:
     def __init__(self, db_path='db.sqlite3'):
@@ -10,6 +13,13 @@ class AsyncDatabase:
             await db.execute(sql_queries.CREATE_USER_TABLE_QUERY)
             await db.execute(sql_queries.CREATE_PROFILE_TABLE_QUERY)
             await db.execute(sql_queries.CREATE_LIKE_DISLIKE_TABLE_QUERY)
+            await db.execute(sql_queries.CREATE_TABLE_REFERENCE_QUERY)
+
+            try:
+                await db.execute(sql_queries.ALTER_TABLE_USER_QUERY_V1)
+                await db.execute(sql_queries.ALTER_TABLE_USER_QUERY_V2)
+            except sqlite3.OperationalError:
+                pass
 
             await db.commit()
             print("Database connected successfully")
@@ -28,4 +38,3 @@ class AsyncDatabase:
             elif fetch == 'one':
                 data = await cursor.fetchone()
                 return dict(data) if data else None
-
