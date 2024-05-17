@@ -41,7 +41,7 @@ async def handle_send_money(callback_query: types.CallbackQuery, state: FSMConte
     )
     await callback_query.answer()
 
-@router.message(state=SendMoneyStates.waiting_for_recipient)
+@router.message(SendMoneyStates.waiting_for_recipient)
 async def process_recipient(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data['recipient'] = message.text
@@ -51,7 +51,7 @@ async def process_recipient(message: types.Message, state: FSMContext):
         text='Введите сумму для отправки:'
     )
 
-@router.message(state=SendMoneyStates.waiting_for_amount)
+@router.message(SendMoneyStates.waiting_for_amount)
 async def process_amount(message: types.Message, state: FSMContext, db: AsyncDatabase):
     amount = float(message.text)
     sender_id = message.from_user.id
