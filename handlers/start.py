@@ -1,5 +1,5 @@
 import sqlite3
-
+import random
 from aiogram import Router, types
 from aiogram.filters import Command
 
