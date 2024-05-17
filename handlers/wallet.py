@@ -34,7 +34,7 @@ async def handle_wallet_number(callback_query: types.CallbackQuery, state: FSMCo
 
 @router.callback_query(lambda call: call.data == "send_money")
 async def handle_send_money(callback_query: types.CallbackQuery, state: FSMContext):
-    await SendMoneyStates.waiting_for_amount.set()
+    await state.set_state(SendMoneyStates.waiting_for_amount)
     await bot.send_message(
         chat_id=callback_query.from_user.id,
         text='Введите номер кошелька получателя:'
