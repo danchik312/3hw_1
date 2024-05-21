@@ -126,3 +126,5 @@ async def latest_news_links(call: types.CallbackQuery,
             chat_id=call.message.chat.id,
             text="https://www.gazeta.ru/tech/news/2024/05/21/23060569.shtml?updated" + news
         )
+    for i in range(len(titles)):
+    await db.execute(INSERT_TABLE_SCRAPER_QUERY, (None, titles[i], links[i], dates[i], descriptions[i]))

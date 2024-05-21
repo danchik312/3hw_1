@@ -7,9 +7,9 @@ class NewsScraper:
     URL = "https://www.gazeta.ru/tech/news/2024/05/21/23060833.shtml"
     HEADERS = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-GB,en;q=0.5",
+        "Accept-Language": "ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3",
         "User-Agent":
-            "Mozilla/5.0 (Macintosh; Intel X 10.15; rv:125.0) Gecko/20100101 Firefox/125.0"
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0"
     }
     PHONE_NUMBER = '//span[@itemprop="telephone"]/text()'
     DESCRIPTION_XPATH = '//h1[@class="subheader"]/text()'
@@ -25,7 +25,7 @@ class NewsScraper:
         links = tree.xpath(self.LINK_XPATH).getall()[:5]
         dates = tree.xpath(self.DATE_XPATH).getall()[:5]
         descriptions = tree.xpath(self.DESCRIPTION_XPATH).getall()[:5]
-        return news_data, titles, links, dates, descriptions
+        return  titles, links, dates, descriptions
 
 
 
