@@ -124,5 +124,5 @@ async def latest_news_links(call: types.CallbackQuery,
     for news in data:
         await bot.send_message(
             chat_id=call.message.chat.id,
-            text="https://www.prnewswire.com" + news
+            text="https://www.gazeta.ru/tech/news/2024/05/21/23060569.shtml?updated" + news
         )
