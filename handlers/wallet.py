@@ -25,12 +25,27 @@ class SendMoneyStates(StatesGroup):
 
 @router.callback_query(lambda call: call.data == "wallet_number")
 async def handle_wallet_number(callback_query: types.CallbackQuery, state: FSMContext):
-    user_id = callback_query.from_user.id
-    await bot.send_message(
-        chat_id=callback_query.from_user.id,
-        text=f'Ваш номер кошелька: {user_id}'
+    telegram_id = callback_query.from_user.id
+    user = await db.execute_query(
+        query="SELECT ID FROM telegram_users WHERE TELEGRAM_ID = ?",
+        params=(telegram_id,),
+        fetch='one'
     )
+
+    if user:
+        user_id = user['ID']
+        await bot.send_message(
+            chat_id=callback_query.from_user.id,
+            text=f'Ваш номер кошелька: {user_id}'
+        )
+    else:
+        await bot.send_message(
+            chat_id=callback_query.from_user.id,
+            text='Пользователь не найден.'
+        )
+
     await callback_query.answer()
+
 
 @router.callback_query(lambda call: call.data == "send_money")
 async def handle_send_money(callback_query: types.CallbackQuery, state: FSMContext):

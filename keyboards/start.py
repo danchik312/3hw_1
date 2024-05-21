@@ -33,6 +33,10 @@ async def start_menu_keyboard():
         text="Send money🦅",
         callback_data="send_money"
     )
+    news_button = InlineKeyboardButton(
+        text="Latest News 🗞️",
+        callback_data="news"
+    )
     markup = InlineKeyboardMarkup(
         inline_keyboard=[
             [registration_button],
@@ -42,6 +46,7 @@ async def start_menu_keyboard():
             [like_history_button],
             [wallet_number_button],
             [send_money_button],
+            [news_button],
         ]
     )
     return markup
