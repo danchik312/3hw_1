@@ -116,15 +116,15 @@ async def admin_start_menu(message: types.Message,
             chat_id=message.from_user.id,
             text="Ты не мой хозяин"
         )
-@router.callback_query(lambda call: call.data == "news")
-async def latest_news_links(call: types.CallbackQuery,
-                            db=AsyncDatabase()):
-    scraper = NewsScraper()
-    data = scraper.scrape_data()
-    for news in data:
-        await bot.send_message(
-            chat_id=call.message.chat.id,
-            text="https://www.gazeta.ru/tech/news/2024/05/21/23060569.shtml?updated" + news
-        )
-    for i in range(len(titles)):
-    await db.execute(INSERT_TABLE_SCRAPER_QUERY, (None, titles[i], links[i], dates[i], descriptions[i]))
+# @router.callback_query(lambda call: call.data == "news")
+# async def latest_news_links(call: types.CallbackQuery,
+#                             db=AsyncDatabase()):
+#     scraper = NewsScraper()
+#     data = scraper.scrape_data()
+#     for news in data:
+#         await bot.send_message(
+#             chat_id=call.message.chat.id,
+#             text="https://www.gazeta.ru/tech/news/2024/05/21/23060569.shtml?updated" + news
+#         )
+#     for i in range(len(titles)):
+#     await db.execute(INSERT_TABLE_SCRAPER_QUERY, (None, titles[i], links[i], dates[i], descriptions[i]))
