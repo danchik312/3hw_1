@@ -29,8 +29,6 @@ class NewsScraper:
 
 
 
-
-
 if __name__ == "__main__":
     scraper = NewsScraper()
     scraper.scrape_data()
