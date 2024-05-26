@@ -16,8 +16,7 @@ class AsyncDatabase:
             await db.execute(sql_queries.CREATE_TABLE_REFERENCE_QUERY)
             await db.execute(sql_queries.CREATE_DONATE_TRANSACTIONS_TABLE_QUERY)
             await db.execute(sql_queries.CREATE_TABLE_TRANSACTIONS_QUERY)
-            await db.execute(sql_queries.CREATE_SCRAPER_TABLE_QUERY)
-
+            await db.execute(sql_queries.CREATE_TABLE_NEWS_QUERY)
             try:
                 await db.execute(sql_queries.ALTER_TABLE_USER_QUERY_V1)
                 await db.execute(sql_queries.ALTER_TABLE_USER_QUERY_V2)

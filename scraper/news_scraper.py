@@ -2,7 +2,6 @@
 # from parsel import Selector
 #
 #
-#
 # class NewsScraper:
 #     URL = "https://www.gazeta.ru/tech/news/2024/05/21/23060833.shtml"
 #     HEADERS = {
@@ -20,15 +19,37 @@
 #
 #     def scrape_data(self):
 #         response = requests.get(self.URL, headers=self.HEADERS)
+#         # print(response.text)
 #         tree = Selector(text=response.text)
-#         titles = tree.xpath(self.TITLE_XPATH).getall()[:5]
-#         links = tree.xpath(self.LINK_XPATH).getall()[:5]
-#         dates = tree.xpath(self.DATE_XPATH).getall()[:5]
-#         descriptions = tree.xpath(self.DESCRIPTION_XPATH).getall()[:5]
-#         return  titles, links, dates, descriptions
+#         imgs = tree.xpath(self.IMAGE_XPATH).getall()
+#         titles = tree.xpath(self.TITLE_XPATH).getall()
+#         dates = tree.xpath(self.DATE_XPATH).getall()
+#         descriptions = tree.xpath(self.DESCRIPTION_XPATH).getall()
+#         links = tree.xpath(self.LINK_XPATH).getall()
+#         print(links)
+#         return links[:5]
+#         # for description in descriptions:
+#         #     print(description)
 #
+#     async def scrape_data(self):
+#         response = requests.get(self.URL, headers=self.HEADERS)
+#         tree = Selector(text=response.text)
+#         news_links = tree.xpath(self.NEWS_XPATH).getall()
+#         return news_links[:5]
+#
+#     async def save_to_database(self, news_data):
+#         conn = await db_connect()
+#         async with conn.transaction():
+#             for link in news_data:
+#                 await conn.execute(
+#                     INSERT_NEWS_QUERY,
+#                     link
+#                 )
 #
 #
 # if __name__ == "__main__":
 #     scraper = NewsScraper()
 #     scraper.scrape_data()
+
+
+

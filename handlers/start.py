@@ -9,7 +9,7 @@ from database import sql_queries
 from database.a_db import AsyncDatabase
 from keyboards.start import start_menu_keyboard
 from aiogram.utils.deep_linking import create_start_link
-from scraper.news_scraper import NewsScraper
+# from scraper.news_scraper import NewsScraper
 
 
 router = Router()
@@ -117,14 +117,8 @@ async def admin_start_menu(message: types.Message,
             text="Ты не мой хозяин"
         )
 # @router.callback_query(lambda call: call.data == "news")
-# async def latest_news_links(call: types.CallbackQuery,
-#                             db=AsyncDatabase()):
+# async def handle_news_button(callback_query: types.CallbackQuery):
 #     scraper = NewsScraper()
-#     data = scraper.scrape_data()
-#     for news in data:
-#         await bot.send_message(
-#             chat_id=call.message.chat.id,
-#             text="https://www.gazeta.ru/tech/news/2024/05/21/23060569.shtml?updated" + news
-#         )
-#     for i in range(len(titles)):
-#     await db.execute(INSERT_TABLE_SCRAPER_QUERY, (None, titles[i], links[i], dates[i], descriptions[i]))
+#     news_data = await scraper.scrape_data()
+#     await scraper.save_to_database(news_data)
+#     await callback_query.answer()

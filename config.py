@@ -3,6 +3,7 @@ from aiogram.client.session.aiohttp import AiohttpSession
 from aiogram.fsm.storage.memory import MemoryStorage
 from decouple import config
 
+
 PROXY_URL = 'http://proxy.server:3128'
 session = AiohttpSession(proxy=PROXY_URL)
 storage = MemoryStorage()
