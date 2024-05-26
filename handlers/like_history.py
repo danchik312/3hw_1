@@ -31,6 +31,11 @@ async def detect_like_history_call(call: types.CallbackQuery,
         ),
         fetch='all'
     )
+    if not profiles:
+        await bot.send_message(
+            chat_id=call.from_user.id,
+            text="возвращайся когда появится симпатия😉"
+        )
     print(profiles)
     randomizer = random.choice(profiles)
     random_profile = await db.execute_query(

@@ -86,7 +86,8 @@ async def referral_list_handler(call: types.CallbackQuery, db=AsyncDatabase()):
             message_text = "Your Referral List:\n" + "\n".join(str(referral) for referral in referral_list)
         else:
             message_text = "You don't have any referrals yet."
-    await call.message.answer(message_text)
+
+        await call.message.answer(message_text)
 @router.callback_query(lambda call: call.data == "reference_balance")
 async def view_balance(call: types.CallbackQuery,
                        db=AsyncDatabase()):
